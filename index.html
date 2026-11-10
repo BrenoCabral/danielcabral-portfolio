@@ -44,7 +44,7 @@
     border-bottom:1px solid transparent}
   .nav.scrolled{background:rgba(10,10,12,.82);backdrop-filter:blur(14px);border-bottom-color:var(--line-soft)}
   .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .brandmark{font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:-.3px}
+  .brandmark{font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:-.3px;position:relative;z-index:60}
   .brandmark span{color:var(--brand-light)}
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a{font-size:14.5px;color:var(--text-2);transition:color .2s}
@@ -52,9 +52,21 @@
   .nav-cta{font-family:var(--font-sans);font-weight:700;font-size:14px;background:var(--brand);color:#fff;
     padding:10px 20px;border-radius:999px;transition:.2s;box-shadow:0 6px 18px var(--glow)}
   .nav-cta:hover{background:var(--brand-strong);transform:translateY(-1px)}
-  .nav-toggle{display:none}
+  .nav-toggle{display:none;position:relative;z-index:60;background:none;border:0;color:#fff;cursor:pointer;
+    width:44px;height:44px;align-items:center;justify-content:center;padding:0;margin-right:-8px}
+  .nav-toggle svg{width:26px;height:26px}
+  .nav-toggle .ic-close{display:none}
   @media(max-width:760px){
-    .nav-links a:not(.nav-cta){display:none}
+    .nav-toggle{display:inline-flex}
+    .nav.open .nav-toggle .ic-open{display:none}
+    .nav.open .nav-toggle .ic-close{display:block}
+    .nav-links{position:fixed;inset:0;height:100svh;background:rgba(10,10,12,.97);
+      -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+      flex-direction:column;align-items:center;justify-content:center;gap:30px;z-index:55;
+      opacity:0;pointer-events:none;transition:opacity .28s}
+    .nav.open .nav-links{opacity:1;pointer-events:auto}
+    .nav-links a{font-size:24px;color:var(--text)}
+    .nav-links a.nav-cta{margin-top:10px;font-size:16px;padding:14px 30px;box-shadow:0 10px 30px var(--glow)}
   }
 
   /* HERO / showreel */
@@ -72,15 +84,13 @@
   .hero-meta .status .dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80}
   .hero-meta .mail{font-size:14px;color:var(--muted);transition:color .2s}
   .hero-meta .mail:hover{color:var(--text)}
-  @media(max-width:620px){
-    .hero-meta{display:none}
-    .hero{min-height:560px}
-    .hero-in{padding-bottom:clamp(28px,5vh,42px)}
-    .hero .eyebrow{font-size:12px}
-    .hero h1{font-size:32px;letter-spacing:-1px;margin-top:12px;max-width:16ch}
-    .hero .pitch{display:none}
-    .hero-actions{margin-top:20px;gap:10px;width:100%}
-    .hero-actions .btn{padding:13px 22px;font-size:14.5px}
+  .hero-profile{display:none;position:absolute;left:0;right:0;bottom:0;z-index:2;
+    padding:0 24px calc(32px + env(safe-area-inset-bottom,0px));
+    font-size:14.5px;line-height:1.55;color:var(--text-2);max-width:42ch}
+  .hero-profile b{color:#fff;font-weight:600}
+  @media(max-width:760px){
+    .hero-in{display:none}
+    .hero-profile{display:block}
   }
   .hero h1{font-family:var(--font-display);font-weight:700;letter-spacing:-2px;line-height:.98;
     font-size:clamp(44px,8vw,96px);text-wrap:balance;max-width:16ch;margin:14px 0 0}
@@ -223,6 +233,10 @@
       <a href="#sobre">Sobre</a>
       <a href="#contato" class="nav-cta">Fazer orçamento</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </button>
   </div>
 </nav>
 
@@ -250,6 +264,7 @@
       <a class="mail" href="mailto:daniel.kcabral@gmail.com">daniel.kcabral@gmail.com</a>
     </div>
   </div>
+  <p class="hero-profile">Daniel Cabral, editor de vídeo há 5 anos. Edita <b>conteúdo para redes, podcasts, vídeos institucionais e video essays</b>, achando a história dentro do material bruto.</p>
 </header>
 
 <!-- LONGFORM -->
@@ -407,6 +422,20 @@
   var nav = document.getElementById('nav');
   var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 40); };
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Mobile menu
+  var navToggle = document.getElementById('navToggle');
+  function closeMenu(){ nav.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+  if(navToggle){
+    navToggle.addEventListener('click', function(){
+      var open = nav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    nav.querySelectorAll('.nav-links a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && nav.classList.contains('open')) closeMenu(); });
+  }
 
   var canHover = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
