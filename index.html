@@ -125,15 +125,17 @@
 
   /* VERTICAL REELS */
   .reels{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px)}
-  .reel{position:relative;aspect-ratio:9/16;border-radius:var(--radius);overflow:hidden;background:var(--surface);
-    border:1px solid var(--line);cursor:pointer}
+  .reel{position:relative;aspect-ratio:9/16;border-radius:var(--radius);overflow:hidden;cursor:pointer;
+    border:1px solid var(--line);background:linear-gradient(180deg,var(--surface-2),#0d0b12)}
+  .reel .rthumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
   .reel .poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;
     background:
-      radial-gradient(120% 60% at 50% 15%,rgba(124,58,237,.38),rgba(124,58,237,0) 60%),
-      linear-gradient(180deg,var(--surface-2),#0d0b12);transition:background .3s;z-index:1}
+      radial-gradient(120% 55% at 50% 12%,rgba(124,58,237,.28),rgba(124,58,237,0) 55%),
+      linear-gradient(180deg,rgba(10,10,12,0) 45%,rgba(10,10,12,.78) 100%);transition:background .3s;z-index:1}
   .reel:hover .poster{background:
-      radial-gradient(120% 60% at 50% 15%,rgba(124,58,237,.55),rgba(124,58,237,0) 60%),
-      linear-gradient(180deg,var(--surface-2),#0d0b12)}
+      radial-gradient(120% 55% at 50% 12%,rgba(124,58,237,.42),rgba(124,58,237,0) 55%),
+      linear-gradient(180deg,rgba(10,10,12,0) 35%,rgba(10,10,12,.88) 100%)}
+  .reel.live .rthumb{display:none}
   .reel .disc{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;
     background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;
     backdrop-filter:blur(4px);transition:.25s}
@@ -217,7 +219,7 @@
 <!-- HERO -->
 <header class="hero" id="top">
   <div class="hero-video">
-    <iframe src="https://player.vimeo.com/video/1242899451?background=1&autoplay=1&loop=1&muted=1&h=75565a58e0"
+    <iframe src="https://www.youtube.com/embed/mTX5NiEcKjk?autoplay=1&mute=1&controls=0&loop=1&playlist=mTX5NiEcKjk&start=4&modestbranding=1&rel=0&playsinline=1&showinfo=0&disablekb=1"
       title="Showreel" allow="autoplay; fullscreen" tabindex="-1"></iframe>
   </div>
   <div class="hero-scrim"></div>
@@ -243,7 +245,7 @@
         <p class="eyebrow">Trabalhos selecionados</p>
         <h2>Formatos longos</h2>
       </div>
-      <p>Ensaios, episódios e registros de eventos. Passe o mouse para pré-visualizar, clique para assistir com som.</p>
+      <p>Ensaios, episódios e registros de eventos. Passe o mouse para a prévia sem som; clique em qualquer lugar do vídeo para assistir com áudio.</p>
     </div>
     <div class="rows">
 
@@ -251,7 +253,7 @@
         <div class="row-media">
           <div class="player" data-type="vimeo" data-id="1242899451" data-hash="75565a58e0">
             <img src="https://vumbnail.com/1242899451.jpg" alt="LOTR 3, ensaio audiovisual" loading="lazy">
-            <div class="play-badge"><span class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Pré-visualizar</div>
+            <div class="play-badge"><span class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Assistir com som</div>
           </div>
         </div>
         <div class="row-info">
@@ -266,7 +268,7 @@
         <div class="row-media">
           <div class="player" data-type="youtube" data-id="mTX5NiEcKjk">
             <img src="https://img.youtube.com/vi/mTX5NiEcKjk/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/mTX5NiEcKjk/hqdefault.jpg'" alt="Rua Mix 360, Episódio 01" loading="lazy">
-            <div class="play-badge"><span class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Pré-visualizar</div>
+            <div class="play-badge"><span class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Assistir com som</div>
           </div>
         </div>
         <div class="row-info">
@@ -281,7 +283,7 @@
         <div class="row-media">
           <div class="player" data-type="youtube" data-id="d5He-16boVI">
             <img src="https://img.youtube.com/vi/d5He-16boVI/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/d5He-16boVI/hqdefault.jpg'" alt="Congresso Autismo Sem Culpa" loading="lazy">
-            <div class="play-badge"><span class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Pré-visualizar</div>
+            <div class="play-badge"><span class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Assistir com som</div>
           </div>
         </div>
         <div class="row-info">
@@ -308,14 +310,17 @@
     </div>
     <div class="reels">
       <div class="reel" data-type="drive" data-id="1MlkhW1RkgN_8Dr1UenG80NMfx81TnczK">
+        <img class="rthumb" src="https://drive.google.com/thumbnail?id=1MlkhW1RkgN_8Dr1UenG80NMfx81TnczK&sz=w800" alt="Reel 01" loading="lazy" onerror="this.remove()">
         <div class="poster"><span class="label">Reel 01</span><span class="sub">Social · vertical</span></div>
         <div class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
       <div class="reel" data-type="drive" data-id="1765Y5DD80sEJEulp8x7zisX3-t5eWcLw">
+        <img class="rthumb" src="https://drive.google.com/thumbnail?id=1765Y5DD80sEJEulp8x7zisX3-t5eWcLw&sz=w800" alt="Reel 02" loading="lazy" onerror="this.remove()">
         <div class="poster"><span class="label">Reel 02</span><span class="sub">Social · vertical</span></div>
         <div class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
       <div class="reel" data-type="drive" data-id="1ny_rDop1VGXkn9xu8qKkesAqq74dM7HC">
+        <img class="rthumb" src="https://drive.google.com/thumbnail?id=1ny_rDop1VGXkn9xu8qKkesAqq74dM7HC&sz=w800" alt="Reel 03" loading="lazy" onerror="this.remove()">
         <div class="poster"><span class="label">Reel 03</span><span class="sub">Social · vertical</span></div>
         <div class="disc"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
@@ -404,11 +409,12 @@
       return 'https://drive.google.com/file/d/'+id+'/preview';
     return 'https://player.vimeo.com/video/'+id+'?autoplay=1&h='+(el.dataset.hash||'');
   }
-  function mountIframe(el, src, allow){
+  function mountIframe(el, src, allow, interactive){
     if(el.querySelector('iframe')) return;
     var f = document.createElement('iframe');
     f.src = src; f.allow = allow; f.setAttribute('allowfullscreen','');
     f.loading = 'lazy';
+    if(!interactive) f.style.pointerEvents = 'none'; // muted preview: let clicks reach the player
     el.appendChild(f);
   }
   function clearPreview(el){
@@ -421,14 +427,14 @@
     if(canHover){
       el.addEventListener('mouseenter', function(){
         if(!el.classList.contains('live'))
-          mountIframe(el, previewSrc(el), 'autoplay; fullscreen; picture-in-picture');
+          mountIframe(el, previewSrc(el), 'autoplay; fullscreen; picture-in-picture', false);
       });
       el.addEventListener('mouseleave', function(){ clearPreview(el); });
     }
     el.addEventListener('click', function(){
       var f = el.querySelector('iframe'); if(f) f.remove();
       el.classList.add('live');
-      mountIframe(el, fullSrc(el), 'autoplay; fullscreen; picture-in-picture; encrypted-media');
+      mountIframe(el, fullSrc(el), 'autoplay; fullscreen; picture-in-picture; encrypted-media', true);
     });
   });
 
@@ -436,7 +442,7 @@
   document.querySelectorAll('.reel').forEach(function(el){
     el.addEventListener('click', function(){
       el.classList.add('live');
-      mountIframe(el, fullSrc(el), 'autoplay; fullscreen');
+      mountIframe(el, fullSrc(el), 'autoplay; fullscreen', true);
     });
   });
 </script>
