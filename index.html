@@ -72,7 +72,16 @@
   .hero-meta .status .dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80}
   .hero-meta .mail{font-size:14px;color:var(--muted);transition:color .2s}
   .hero-meta .mail:hover{color:var(--text)}
-  @media(max-width:620px){.hero-meta{display:none}}
+  @media(max-width:620px){
+    .hero-meta{display:none}
+    .hero{min-height:560px}
+    .hero-in{padding-bottom:clamp(28px,5vh,42px)}
+    .hero .eyebrow{font-size:12px}
+    .hero h1{font-size:32px;letter-spacing:-1px;margin-top:12px;max-width:16ch}
+    .hero .pitch{display:none}
+    .hero-actions{margin-top:20px;gap:10px;width:100%}
+    .hero-actions .btn{padding:13px 22px;font-size:14.5px}
+  }
   .hero h1{font-family:var(--font-display);font-weight:700;letter-spacing:-2px;line-height:.98;
     font-size:clamp(44px,8vw,96px);text-wrap:balance;max-width:16ch;margin:14px 0 0}
   .hero h1 em{font-style:normal;color:var(--brand-light)}
