@@ -448,6 +448,15 @@
       mountIframe(el, fullSrc(el), 'autoplay; fullscreen; picture-in-picture; encrypted-media', true);
     });
   });
+
+  // Upgrade Vimeo reel thumbnails to the real vertical frame (vumbnail is 16:9 and crops too tight on a 9:16 tile)
+  document.querySelectorAll('.reel[data-type="vimeo"]').forEach(function(el){
+    var img = el.querySelector('.rthumb'); if(!img) return;
+    fetch('https://vimeo.com/api/oembed.json?width=720&url=https%3A%2F%2Fvimeo.com%2F'+el.dataset.id)
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){ if(d && d.thumbnail_url){ img.src = d.thumbnail_url; } })
+      .catch(function(){});
+  });
 </script>
 </body>
 </html>
